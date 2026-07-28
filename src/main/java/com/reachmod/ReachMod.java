@@ -1,5 +1,6 @@
 package com.reachmod;
 
+import com.reachmod.network.ReachNetworking;
 import com.reachmod.config.ModConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
