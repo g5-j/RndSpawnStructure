@@ -4,10 +4,9 @@ plugins {
 }
 
 version = project.mod_version
-group = project.mod_group
+group = project.maven_group
 
 repositories {
-    mavenCentral()
 }
 
 dependencies {
@@ -35,6 +34,8 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-base {
-    archivesName = project.mod_id
+jar {
+    from("LICENSE") {
+        rename "${it}_${project.archivesBaseName}"
+    }
 }
