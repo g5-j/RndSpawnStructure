@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "shieldnuke",
+  "version": "${version}",
+  "name": "ShieldNuke",
+  "description": "Auto switch to axe when attacking players blocking with a shield.",
+  "authors": [
+    "User"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "com.shieldnuke.ShieldNuke"
+    ],
+    "client": [
+      "com.shieldnuke.client.ShieldNukeClient"
+    ]
+  },
+  "mixins": [
+    "shieldnuke.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  }
+}
