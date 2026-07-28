@@ -31,9 +31,7 @@ public class ColorButtonWidget extends PressableWidget {
     }
 
     @Override
-    protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
-        if (!this.visible) return;
-
+    public void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
         int colorToRender = this.active ? (this.isHovered() ? adjustBrightness(backgroundColor, 1.2f) : backgroundColor) : 0xFF444444;
 
         // رسم خلفية الزر
