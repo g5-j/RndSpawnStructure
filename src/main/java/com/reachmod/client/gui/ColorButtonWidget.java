@@ -20,19 +20,19 @@ public class ColorButtonWidget extends ButtonWidget {
     }
 
     @Override
-    public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
+    protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
         int colorToRender = this.active ? (this.isHovered() ? adjustBrightness(backgroundColor, 1.2f) : backgroundColor) : 0xFF444444;
 
-        // رسم خلفية الزر بالكود
+        // رسم خلفية الزر
         context.fill(getX(), getY(), getX() + width, getY() + height, colorToRender);
 
-        // رسم إطار للزر
+        // رسم إطار الزر
         context.fill(getX(), getY(), getX() + width, getY() + 1, borderColor);
         context.fill(getX(), getY() + height - 1, getX() + width, getY() + height, borderColor);
         context.fill(getX(), getY(), getX() + 1, getY() + height, borderColor);
         context.fill(getX() + width - 1, getY(), getX() + width, getY() + height, borderColor);
 
-        // رسم النص المكتوب على الزر
+        // رسم النص داخل الزر
         int textColor = this.active ? 0xFFFFFFFF : 0xFFA0A0A0;
         context.drawCenteredTextWithShadow(
                 MinecraftClient.getInstance().textRenderer,
