@@ -3,14 +3,17 @@ package com.reachmod.client.gui;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.PressableWidget;
 import net.minecraft.text.Text;
 
-public class ColorButtonWidget extends ButtonWidget {
+public class ColorButtonWidget extends PressableWidget {
     private int backgroundColor;
     private final int borderColor;
+    private final ButtonWidget.PressAction onPressAction;
 
-    public ColorButtonWidget(int x, int y, int width, int height, Text message, PressAction onPress, int backgroundColor, int borderColor) {
-        super(x, y, width, height, message, onPress, DEFAULT_NARRATION_SUPPLIER);
+    public ColorButtonWidget(int x, int y, int width, int height, Text message, ButtonWidget.PressAction onPressAction, int backgroundColor, int borderColor) {
+        super(x, y, width, height, message);
+        this.onPressAction = onPressAction;
         this.backgroundColor = backgroundColor;
         this.borderColor = borderColor;
     }
@@ -20,7 +23,16 @@ public class ColorButtonWidget extends ButtonWidget {
     }
 
     @Override
-    protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void onPress() {
+        if (this.onPressAction != null) {
+            this.onPressAction.onPress(null);
+        }
+    }
+
+    @Override
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        if (!this.visible) return;
+
         int colorToRender = this.active ? (this.isHovered() ? adjustBrightness(backgroundColor, 1.2f) : backgroundColor) : 0xFF444444;
 
         // رسم خلفية الزر
