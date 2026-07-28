@@ -20,8 +20,18 @@ public class ModConfig {
     public static ModConfig getInstance() {
         if (instance == null) {
             instance = new ModConfig();
+            instance.load();
         }
         return instance;
+    }
+
+    // دوال استدعاء مساعدة (Static Helpers) لحل مشكلة التجميع
+    public static double getReachDistance() {
+        return getInstance().reachDistance;
+    }
+
+    public static boolean isEnabled() {
+        return getInstance().enabled;
     }
 
     public void load() {
