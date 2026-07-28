@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "reachmod",
+  "version": "${version}",
+  "name": "Reach Mod",
+  "description": "Custom reach modifier with in-game GUI.",
+  "authors": ["Developer"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "com.reachmod.ReachMod"
+    ],
+    "client": [
+      "com.reachmod.client.ReachModClient"
+    ]
+  },
+  "mixins": [
+    "reachmod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  }
+}
