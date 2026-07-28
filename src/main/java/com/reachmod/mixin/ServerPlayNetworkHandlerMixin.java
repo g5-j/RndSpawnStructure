@@ -16,7 +16,8 @@ public class ServerPlayNetworkHandlerMixin {
     // 1. تعديل مسافة ضرب وتفاعل الكائنات (Entities)
     @ModifyConstant(
         method = "onPlayerInteractEntity",
-        constant = @Constant(doubleValue = 36.0)
+        constant = @Constant(doubleValue = 36.0),
+        require = 0
     )
     private double modifyEntityInteractionDistance(double original) {
         double customReach = ReachNetworking.getPlayerReach(player.getUuid());
@@ -24,10 +25,11 @@ public class ServerPlayNetworkHandlerMixin {
         return totalReach * totalReach;
     }
 
-    // 2. تعديل مسافة التفاعل مع البلوكات بالزر الأيمن (وضع البلوكات / استخدام الأجهزة)
+    // 2. تعديل مسافة التفاعل مع البلوكات بالزر الأيمن
     @ModifyConstant(
         method = "onPlayerInteractBlock",
-        constant = @Constant(doubleValue = 64.0)
+        constant = @Constant(doubleValue = 64.0),
+        require = 0
     )
     private double modifyBlockInteractionDistance(double original) {
         double customReach = ReachNetworking.getPlayerReach(player.getUuid());
@@ -35,10 +37,11 @@ public class ServerPlayNetworkHandlerMixin {
         return totalReach * totalReach;
     }
 
-    // 3. تعديل مسافة تكسير البلوكات بالزر الأيسر (Mining / Breaking)
+    // 3. تعديل مسافة تكسير البلوكات بالزر الأيسر (Mining)
     @ModifyConstant(
         method = "onPlayerAction",
-        constant = @Constant(doubleValue = 36.0)
+        constant = @Constant(doubleValue = 36.0),
+        require = 0
     )
     private double modifyBlockMiningDistance(double original) {
         double customReach = ReachNetworking.getPlayerReach(player.getUuid());
