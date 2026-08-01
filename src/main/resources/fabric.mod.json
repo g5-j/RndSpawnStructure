@@ -1,26 +1,19 @@
 {
   "schemaVersion": 1,
-  "id": "shieldnuke",
+  "id": "randomdungeonrespawn",
   "version": "${version}",
-  "name": "ShieldNuke",
-  "description": "Auto switch to axe when attacking players blocking with a shield.",
+  "name": "Random Dungeon Respawn",
+  "description": "Respawns the player in a random dungeon across any dimension on death.",
   "authors": [
-    "User"
+    "ABOOD"
   ],
-  "contact": {},
   "license": "MIT",
-  "environment": "client",
+  "environment": "*",
   "entrypoints": {
     "main": [
-      "com.shieldnuke.ShieldNuke"
-    ],
-    "client": [
-      "com.shieldnuke.client.ShieldNukeClient"
+      "com.randomdungeon.RandomDungeonRespawn"
     ]
   },
-  "mixins": [
-    "shieldnuke.mixins.json"
-  ],
   "depends": {
     "fabricloader": ">=0.15.0",
     "minecraft": "~1.20.1",
