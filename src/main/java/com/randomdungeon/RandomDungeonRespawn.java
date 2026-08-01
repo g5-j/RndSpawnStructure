@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -28,33 +27,33 @@ public class RandomDungeonRespawn implements ModInitializer {
             MinecraftServer server = newPlayer.getServer();
             if (server == null) return;
 
-            // 1. اختيار عالم عشوائي من العوالم المحمّلة
+            // 1. اختيار عالم عشوائي
             List<ServerWorld> worlds = new ArrayList<>();
             server.getWorlds().forEach(worlds::add);
             if (worlds.isEmpty()) return;
 
             ServerWorld targetWorld = worlds.get(ThreadLocalRandom.current().nextInt(worlds.size()));
 
-            // 2. جلب الدنجنات والمباني باستخدام streamEntries()
+            // 2. جلب الدنجنات والمباني المتاحة
             Registry<Structure> structureRegistry = targetWorld.getRegistryManager().get(RegistryKeys.STRUCTURE);
-            List<RegistryEntry<Structure>> allStructures = structureRegistry.streamEntries().toList();
+            List<RegistryEntry<Structure>> allStructures = new ArrayList<>();
+            structureRegistry.streamEntries().forEach(allStructures::add);
 
             if (allStructures.isEmpty()) return;
 
-            List<RegistryEntry<Structure>> shuffledStructures = new ArrayList<>(allStructures);
-            Collections.shuffle(shuffledStructures);
+            Collections.shuffle(allStructures);
 
-            // 3. البحث عن دنجن ورسپنة اللاعب داخله
-            for (RegistryEntry<Structure> structureEntry : shuffledStructures) {
+            // 3. البحث عن أول دنجن متاح ونقل اللاعب له
+            for (RegistryEntry<Structure> structureEntry : allStructures) {
                 BlockPos searchOrigin = new BlockPos(
-                        ThreadLocalRandom.current().nextInt(-5000, 5000),
+                        ThreadLocalRandom.current().nextInt(-4000, 4000),
                         64,
-                        ThreadLocalRandom.current().nextInt(-5000, 5000)
+                        ThreadLocalRandom.current().nextInt(-4000, 4000)
                 );
 
-                // locateStructure ترجع Pair في 1.20.1
+                // استخدام HolderSet المباشر المتوافق مع 1.20.1
                 Pair<BlockPos, RegistryEntry<Structure>> result = targetWorld.locateStructure(
-                        RegistryEntryList.of(structureEntry),
+                        net.minecraft.registry.entry.RegistryEntryList.of(structureEntry),
                         searchOrigin,
                         100,
                         false
